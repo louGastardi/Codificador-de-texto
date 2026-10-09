@@ -2,59 +2,109 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Decrypter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <title class="text">Message decrypter</title>
   </head>
-  <body>
-    <header>
-      <img class="logo" src="images/logoMD.png" />
-    </header>
-    <main>
-      <div class="leftSide">
-        <textarea id="textAreaUser" placeholder="Please type here your text to encryption."></textarea>
-        <p class="textLeftSide">⚠ No uppercase or special characters allowed</p>
-        <button type="button" id="encrypt">Encrypt it!</button>
-        <button type="button" id="decrypt">Decrypt it!</button>
-      </div>
-      <div class="rightSide">
-        <div class="displayArea">
-          <div class="rightSideNoMessage">
-            <div class="animate"></div>
-            <h1 class="textRightSide">No message found</h1>
-            <p class="textRightSide">Please type a text you want to encrypt!</p>
-          </div>
+  <body data-mode="encrypt">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
 
-          <div class="rightSideShowMessage">
-            <p class="textAreaRightSide" id="outputMessage"></p>
-            <button type="button" class="btnRightSide" id="copy">Copy text!</button>
-          </div>
+    <header class="top">
+      <a class="brand" href="./">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="brand-name">Message<br />Decrypter</span>
+      </a>
+    </header>
+
+    <main class="stage">
+      <section class="intro">
+        <h1>
+          Say it <em class="scramble" data-final="secretly">secretly</em>.
+        </h1>
+        <p class="lede">
+          Type a message, lock it, send it. Paste it back and it opens again.
+          Uppercase, accents and symbols stay exactly as you wrote them.
+        </p>
+      </section>
+
+      <section class="panel input-panel">
+        <div class="panel-head">
+          <span class="panel-label" id="inputLabel">Your message</span>
+          <span class="counter" id="counter">0 chars</span>
         </div>
-      </div>
+        <textarea
+          id="textAreaUser"
+          spellcheck="false"
+          placeholder="Type your message here…"
+        ></textarea>
+        <div class="actions">
+          <button type="button" class="btn-main" id="mainBtn">
+            <span id="mainBtnText">Encrypt it</span>
+            <kbd>⌘ ↵</kbd>
+          </button>
+          <button type="button" class="btn-switch" id="switchBtn">
+            Have an encrypted message? <u>Decrypt instead</u>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel output-panel" id="outputPanel">
+        <div class="panel-head">
+          <span class="panel-label" id="outputLabel">Result</span>
+        </div>
+
+        <div class="empty" id="emptyState">
+          <div class="rotors" aria-hidden="true">
+            <div class="rotor"><span>A</span><span>E</span><span>I</span><span>O</span><span>U</span><span>A</span></div>
+            <div class="rotor"><span>I</span><span>O</span><span>U</span><span>A</span><span>E</span><span>I</span></div>
+            <div class="rotor"><span>U</span><span>A</span><span>E</span><span>I</span><span>O</span><span>U</span></div>
+          </div>
+          <h2>Nothing here yet</h2>
+          <p>Your result will appear here.</p>
+        </div>
+
+        <div class="result" id="resultState" hidden>
+          <p class="output" id="outputMessage"></p>
+          <button type="button" class="btn-copy" id="copyBtn">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="8" y="8" width="12" height="12" rx="2.5"></rect>
+              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+            </svg>
+            <span id="copyBtnText">Copy</span>
+          </button>
+          <p class="hint" id="copyHint">Copying also puts it back in the box, ready to decrypt.</p>
+        </div>
+      </section>
     </main>
-    <footer>
-      <ul class="redesSociais">
+
+    <footer class="foot">
+      <p>Lou Gastardi · © 2022</p>
+      <ul>
         <li>
-          <a href="https://www.linkedin.com/in/louisegastardi/" target="_blank" rel="noopener noreferrer"
-            ><img class="imgNetwork" src="images/icon_LinkedIn.png"
-          /></a>
+          <a href="https://www.linkedin.com/in/louisegastardi/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.6 4.77 6v5.56h-4v-4.93c0-1.18-.02-2.7-1.65-2.7-1.65 0-1.9 1.29-1.9 2.62v5.01h-4v-11Z"/></svg>
+          </a>
         </li>
         <li>
-          <a href="https://github.com/louGastardi" target="_blank" rel="noopener noreferrer"
-            ><img class="imgNetwork" src="images/icon_gitHub.png"
-          /></a>
-        </li>
-        <li>
-          <a href="https://lougastardi.github.io/Curriculum/" target="_blank" rel="noopener noreferrer"
-            ><img class="imgNetwork" src="images/icon_LouGastardi.png"
-          /></a>
+          <a href="https://github.com/louGastardi" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          </a>
         </li>
       </ul>
-      <p class="footer">Lou Gastardi<br />© 2022</p>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.4/lottie_svg.min.js"></script>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
     <script src="script.js"></script>
   </body>
 </html>
